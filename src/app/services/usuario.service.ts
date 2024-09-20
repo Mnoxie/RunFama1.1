@@ -7,7 +7,24 @@ export class UsuarioService {
   usuarios: any[] = [];
   private usuarioAutenticado: any = null; // Añadir propiedad para el usuario autenticado
 
-  constructor() { }
+  constructor() {
+    // Crear usuarios predefinidos con datos completos
+    this.usuarios.push(
+      {
+        rut: '12345678-9',
+        correo: 'admin@duocuc.cl',
+        password: 'admin123',
+        nombre: 'Admin',
+        fecha_nacimiento: '1990-01-01',
+        genero: 'masculino',
+        sede: 'Puente alto',
+        tiene_auto: 'si',
+        marca_auto: 'Toyota',
+        patente: 'ABCD12',
+        asientos_disp: 4
+      },
+    );
+  }
 
   public createUsuario(usuario: any): boolean {
     if (this.getUsuario(usuario.rut) === undefined) {

@@ -20,12 +20,27 @@
               <ion-input formControlName="rut" placeholder="Sin punto con guion" type="text" labelPlacement="stacked" label="RUT" fill="outline"></ion-input>
               <ion-input formControlName="nombre" type="text" labelPlacement="stacked" label="Nombre" fill="outline"></ion-input>
               <ion-input formControlName="fecha_nacimiento" type="date" label="Fecha de Nacimiento" labelPlacement="stacked" fill="outline"></ion-input>
-                <ion-text color="danger" *ngIf="persona.controls.fecha_nacimiento.errors?.['invalidAge']">
-                  <p>La edad debe ser entre 18 y 100 :C.</p>
-                </ion-text>
+              <ion-text color="danger" *ngIf="persona.controls.fecha_nacimiento.errors?.['invalidAge']">
+                <p>La edad debe ser entre 18 y 100 :C.</p>
+              </ion-text>
               <ion-input formControlName="correo" placeholder="@duocuc.cl" type="email" label="Correo" labelPlacement="stacked" fill="outline"></ion-input>
-              <ion-input formControlName="password" placeholder="Igual mayor a 4 digitos" type="password" label="Password" labelPlacement="stacked" fill="outline"></ion-input>
               
+              <div class="password-container">
+                <ion-input [type]="isPasswordVisible ? 'text' : 'password'" formControlName="password" placeholder="Igual mayor a 4 dígitos" label="Contraseña" labelPlacement="stacked" fill="outline"></ion-input>
+                <ion-icon name="eye" (click)="togglePasswordVisibility()" *ngIf="!isPasswordVisible"></ion-icon>
+                <ion-icon name="eye-off" (click)="togglePasswordVisibility()" *ngIf="isPasswordVisible"></ion-icon>
+              </div>
+              
+              <div class="password-container">
+                <ion-input [type]="isRepetirPasswordVisible ? 'text' : 'password'" formControlName="repetir_password" label="Repetir Contraseña" labelPlacement="stacked" fill="outline"></ion-input>
+                <ion-icon name="eye" (click)="toggleRepetirPasswordVisibility()" *ngIf="!isRepetirPasswordVisible"></ion-icon>
+                <ion-icon name="eye-off" (click)="toggleRepetirPasswordVisibility()" *ngIf="isRepetirPasswordVisible"></ion-icon>
+              </div>
+              
+              <ion-text color="danger" *ngIf="persona.get('repetir_password')?.hasError('contrasenasNoCoinciden')">
+                <p>Las contraseñas no coinciden.</p>
+              </ion-text>
+
               <ion-select formControlName="genero" label="Genero" labelPlacement="stacked" fill="outline">
                 <ion-select-option value="masculino">Masculino</ion-select-option>
                 <ion-select-option value="femenino">Femenino</ion-select-option>
@@ -52,7 +67,6 @@
                 <ion-select-option value="villarica">Villarica</ion-select-option>
                 <ion-select-option value="puerto_montt">Puerto Montt</ion-select-option>
               </ion-select>
-            
               
               <ion-label>¿Tiene Auto?</ion-label>
               
@@ -66,13 +80,11 @@
                   <ion-label>No</ion-label>
                 </ion-item>
               </ion-radio-group>
-
-               
+              
               <ion-item>
                 <ion-label position="stacked">Foto de Perfil</ion-label>
                 <input type="file" (change)="onFileChange($event)">
               </ion-item>
-              
               
               <ion-button [disabled]="persona.invalid" type="submit" size="block" color="warning">REGISTRAR</ion-button>
             </form>
@@ -80,7 +92,6 @@
         </ion-card>
       </ion-col>
       
-      <!-- Columna de derecha -->
       <ion-col size="12" size-md="6" *ngIf="persona.controls.tiene_auto.value === 'si'">
         <ion-card>
           <ion-card-header>
@@ -93,7 +104,6 @@
                 <p>La marca ingresada no existe en el sistema :C.</p>
               </ion-text>
 
-              
               <ion-input formControlName="patente" type="text" label="Patente" labelPlacement="stacked" fill="outline"></ion-input>
               <ion-text color="danger" *ngIf="persona.controls.patente.errors?.['pattern']">
                 <p>La patente debe ser válida (formato: AB1234 o ABCD12).</p>

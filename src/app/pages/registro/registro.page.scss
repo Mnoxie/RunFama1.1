@@ -9,13 +9,13 @@ ion-card {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     margin: 20px auto;
     padding: 20px;
-    max-width: 600px; /* Limita el ancho máximo del card */
+    max-width: 600px;
 }
 
 ion-card-header {
     background-color: rgba(234, 179, 8, 0.2);
     border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-    padding: 10px 0; /* Agrega espacio interno para el header */
+    padding: 10px 0;
 }
 
 ion-card-title {
@@ -26,11 +26,27 @@ ion-card-title {
 }
 
 ion-input, ion-select, ion-radio-group {
-    margin-bottom: 20px; /* Espacio entre campos */
+    margin-bottom: 20px;
+}
+
+.password-container {
+    position: relative;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center; /* Centra verticalmente el contenido */
+}
+
+.password-container ion-input {
+    flex: 1; /* Ocupa todo el espacio disponible */
+}
+
+ion-icon {
+    cursor: pointer;
+    margin-left: 10px; /* Espacio entre el input y el icono */
 }
 
 ion-label {
-    margin-bottom: 10px; /* Espacio debajo de las etiquetas */
+    margin-bottom: 10px;
 }
 
 ion-button {
@@ -40,8 +56,8 @@ ion-button {
     margin-top: 20px;
     color: #fff; 
     background-color: rgb(236, 72, 153);
-    border: none; /* Elimina el borde predeterminado */
-    border-radius: 5px; /* Agrega bordes redondeados */
+    border: none;
+    border-radius: 5px;
 }
 
 ion-radio-group {

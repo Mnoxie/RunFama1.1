@@ -10,6 +10,9 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
+
+  isPasswordVisible: boolean = false;
+  isRepetirPasswordVisible: boolean = false;
   
   // Declara las propiedades email y password (si las necesitas en el futuro)
   
@@ -36,6 +39,7 @@ export class RegistroPage implements OnInit {
     fecha_nacimiento: new FormControl('', [Validators.required, this.anosvalidar(18, 100)]),
     correo: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Z0-9._%+-]+@duocuc.cl")]),
     password: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    repetir_password: new FormControl('', [Validators.required]), // Campo para repetir la contraseña
     genero: new FormControl('', [Validators.required]),
     sede: new FormControl('', [Validators.required]),
     foto_perfil: new FormControl(null), // Campo para la foto de perfil
@@ -44,8 +48,14 @@ export class RegistroPage implements OnInit {
     patente: new FormControl(''),
     asientos_disp: new FormControl(''),
   });
+ ngOnInit() {
+  // Validar que las contraseñas coincidan
+  this.persona.get('repetir_password')?.setValidators([
+    Validators.required,
+    this.validarRepetirPassword.bind(this)
+  ]);
 
-  ngOnInit() {
+    
     // Escuchar cambios en el campo 'tiene_auto' para actualizar las validaciones de marca_auto, patente y asientos_disp
     this.persona.get('tiene_auto')?.valueChanges.subscribe(value => {
       if (value === 'si') {
@@ -64,6 +74,14 @@ export class RegistroPage implements OnInit {
       this.persona.get('patente')?.updateValueAndValidity();
       this.persona.get('asientos_disp')?.updateValueAndValidity();
     });
+  }
+
+  validarRepetirPassword(control: AbstractControl): { [key: string]: any } | null {
+    const password = this.persona.get('password')?.value;
+    if (control.value !== password) {
+      return { contrasenasNoCoinciden: true }; // Devuelve error si no coinciden
+    }
+    return null; // Devuelve null si coinciden
   }
 
   validarAsientos(control: AbstractControl) {
@@ -131,4 +149,14 @@ export class RegistroPage implements OnInit {
     });
     await alert.present();    
   }
+
+   // Métodos para mostrar/ocultar contraseñas
+   togglePasswordVisibility() {
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
+
+  toggleRepetirPasswordVisibility() {
+    this.isRepetirPasswordVisible = !this.isRepetirPasswordVisible;
+  }
+
 }
