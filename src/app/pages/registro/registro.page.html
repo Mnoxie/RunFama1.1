@@ -21,7 +21,7 @@
               <ion-input formControlName="nombre" type="text" labelPlacement="stacked" label="Nombre" fill="outline"></ion-input>
               <ion-input formControlName="fecha_nacimiento" type="date" label="Fecha de Nacimiento" labelPlacement="stacked" fill="outline"></ion-input>
               <ion-text color="danger" *ngIf="persona.controls.fecha_nacimiento.errors?.['invalidAge']">
-                <p>La edad debe ser entre 18 y 100 :C.</p>
+                <p>La edad debe ser entre 18 y 100! :C.</p>
               </ion-text>
               <ion-input formControlName="correo" placeholder="@duocuc.cl" type="email" label="Correo" labelPlacement="stacked" fill="outline"></ion-input>
               
